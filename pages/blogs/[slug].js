@@ -18,7 +18,7 @@ export const getStaticPaths = async () => {
   });
   return {
     paths: paths,
-    fallback: false, //shows a 404 page instead a fallback page
+    fallback: true, //shows a 404 page instead a fallback page
   };
 };
 
@@ -38,6 +38,6 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Details({ blog }) {
-  console.log(blog);
+  if (!blog) return <h1>loafing</h1>;
   return <div>{documentToReactComponents(blog.fields.post)}</div>;
 }
