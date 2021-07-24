@@ -27,7 +27,7 @@ export async function getStaticProps({ params }) {
   const { items } = await client.getEntries({
     //get res.item
     content_type: "blog",
-    "fields.slug": params,
+    "fields.slug": params.slug,
   });
   return {
     props: {
