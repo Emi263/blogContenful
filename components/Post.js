@@ -48,7 +48,7 @@ const Post = ({ blog }) => {
         .imgWrapper {
           max-width: 800px;
           width: 100%;
-
+          background: gray;
           margin: 0 auto;
           border-radius: 10px;
         }
