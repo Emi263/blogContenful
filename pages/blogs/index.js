@@ -1,5 +1,6 @@
 import { createClient } from "contentful";
 import Link from "next/link";
+import Post from "../../components/Post";
 import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 export async function getStaticProps() {
@@ -20,18 +21,19 @@ export async function getStaticProps() {
 
 function index({ blogs }) {
   return (
-    <div>
+    <div className="posts">
       {blogs.map((blog) => (
         <div key={blog.sys.id}>
-          <Link href={"/blogs/" + blog.fields.slug}> Read more</Link>
-
-          <Image
-            src={`https:` + blog.fields.images.fields.file.url}
-            width={400}
-            height={400}
-          />
+          <Post blog={blog} />
         </div>
       ))}
+
+      <style jsx>{`
+        .posts {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+      `}</style>
     </div>
   );
 }
