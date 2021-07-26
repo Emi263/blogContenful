@@ -1,6 +1,6 @@
 module.exports = {
   reactStrictMode: true,
-  reactDisplayName: enabled,
+  reactDisplayName: false,
   images: {
     domains: ["images.ctfassets.net"],
   },
