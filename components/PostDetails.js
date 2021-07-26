@@ -5,12 +5,16 @@ import { useRouter } from "next/router";
 function PostDetails({ blog }) {
   const router = useRouter();
 
+  function createMarkup() {
+    let doc = blog.fields.post;
+    return { __html: documentToReactComponents(doc) };
+  }
+
   return (
     <div className="post">
       <div className="home" onClick={() => router.push("/")}>
         Go back home
       </div>
-
       <div className="title">{blog.fields.title}</div>
       <div className="imgWrapper">
         <Image
@@ -25,17 +29,14 @@ function PostDetails({ blog }) {
       </div>
 
       <div className="postText">
-        {documentToReactComponents(blog.fields.post)}
+        <div dangerouslySetInnerHTML={createMarkup()} />;
       </div>
       <style jsx>{`
         .home {
           position: absolute;
-
           left: 20px;
-          border-bottom: 2px solid blue;
           top: 20px;
-          color: #00536b;
-          cursor: pointer;
+          color: red;
         }
         .title {
           text-align: center;

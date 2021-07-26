@@ -16,12 +16,7 @@ const Post = ({ blog }) => {
           className="img"
         />
       </div>
-      <div className="blog-desc">
-        {documentToReactComponents(
-          blog.fields.post
-        )[0].props.children[0].substr(0, 3)}
-        <span>...</span>
-      </div>{" "}
+      <div className="blog-desc">{blog.fields.description}</div>{" "}
       <Link passHref={true} href={"/blogs/" + blog.fields.slug}>
         <a>Read more</a>
       </Link>
@@ -63,7 +58,7 @@ const Post = ({ blog }) => {
           font-size: calc(1vw + 12px);
           background: blue;
           color: white;
-          border-bottom: 2px solid blue;
+
           font-weight: 700;
           border-radius: 10px;
           transition: 0.3s ease-in-out;

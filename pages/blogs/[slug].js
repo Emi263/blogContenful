@@ -1,8 +1,30 @@
 import { createClient } from "contentful";
+import { BLOCKS, INLINES } from "@contentful/rich-text-types";
+
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import PostDetails from "../../components/PostDetails";
 import Image from "next/image";
 import { useRouter } from "next/router";
+
+const renderOptions = {
+  renderNode: {
+    [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
+      // render the EMBEDDED_ASSET as you need
+      return (
+        <div className="imageWrapper">
+          <Image
+            className="img"
+            src={`https://${node.data.target.fields.file.url}`}
+            height={600}
+            width={800}
+            alt={node.data.target.fields.description}
+          />
+        </div>
+      );
+    },
+  },
+};
+
 const client = createClient({
   space: "l8hvjl5jmdb6",
   accessToken: "zKDgk4EQgJdVqSGHJc4EfQzLtXELAkpO6NUWSAZotxg",
@@ -40,7 +62,6 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Details({ blog }) {
-  console.log(blog);
   const router = useRouter();
   if (!blog) return <h1>loading</h1>;
 
@@ -51,29 +72,21 @@ export default function Details({ blog }) {
       </div>
 
       <div className="title">{blog.fields.title}</div>
-      <div className="imgWrapper">
-        <Image
-          src={`https:` + blog.fields.images.fields.file.url}
-          width={500}
-          height={400}
-          objectFit="cover"
-          layout="responsive"
-          quality={10}
-          className="img"
-        />
-      </div>
 
       <div className="postText">
-        {documentToReactComponents(blog.fields.post)}
+        {documentToReactComponents(blog.fields.post, renderOptions)}
       </div>
       <style jsx>{`
         .home {
+          border-bottom: 2px solid blue;
           position: absolute;
-          left: 20px;
-          top: 20px;
-          color: #00536b;
+          left: 10px;
+          top: 10px;
+          font-size: 10px;
+          color: blue;
           cursor: pointer;
         }
+
         .title {
           text-align: center;
           font-size: calc(1vw + 12px);
@@ -86,14 +99,13 @@ export default function Details({ blog }) {
           max-width: 800px;
           width: 100%;
           margin: 0 auto;
-          border-radius: 10px;
+
           padding: 1rem;
         }
 
         .postText {
           position: relative;
-          width: 100%;
-          text-align: center;
+          font-family: monospace;
         }
       `}</style>
     </div>
