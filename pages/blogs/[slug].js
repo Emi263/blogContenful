@@ -51,7 +51,7 @@ export default function Details({ blog }) {
           <div className="imageWrapper">
             <Image
               className="img"
-              src={`https://${node.data.target.fields.file.url}`}
+              src={`https:${node.data.target.fields.file.url}`}
               height={600}
               width={800}
               alt={node.data.target.fields.description}
