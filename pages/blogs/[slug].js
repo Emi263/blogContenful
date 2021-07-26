@@ -30,7 +30,7 @@ const client = createClient({
   accessToken: "zKDgk4EQgJdVqSGHJc4EfQzLtXELAkpO6NUWSAZotxg",
 });
 
-export const getStaticPaths = async () => {
+export async function getStaticPaths() {
   const res = await client.getEntries({ content_type: "blog" });
 
   const paths = res.items.map((item) => {
@@ -44,7 +44,7 @@ export const getStaticPaths = async () => {
     paths: paths,
     fallback: true, //shows a 404 page instead a fallback page
   };
-};
+}
 
 export async function getStaticProps({ params }) {
   //props is the path.params (above)
