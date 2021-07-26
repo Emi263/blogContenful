@@ -68,7 +68,7 @@ export default function Details({ blog }) {
   return (
     <div className="post">
       <div className="home" onClick={() => router.push("/")}>
-        Go back home
+        Home
       </div>
 
       <div className="title">{blog.fields.title}</div>
@@ -82,12 +82,13 @@ export default function Details({ blog }) {
           position: absolute;
           left: 10px;
           top: 10px;
-          font-size: 10px;
+          font-size: 13px;
           color: blue;
           cursor: pointer;
         }
 
         .title {
+          margin-top: 2rem;
           text-align: center;
           font-size: calc(1vw + 12px);
           font-weight: bold;
@@ -99,13 +100,11 @@ export default function Details({ blog }) {
           max-width: 800px;
           width: 100%;
           margin: 0 auto;
-
           padding: 1rem;
         }
 
         .postText {
           position: relative;
-          font-family: monospace;
         }
       `}</style>
     </div>

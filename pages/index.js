@@ -42,6 +42,7 @@ export default function Blogs({ blogs }) {
           .posts {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-gap: 50px;
           }
         `}</style>
       </div>

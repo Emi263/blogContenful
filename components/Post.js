@@ -7,8 +7,8 @@ const Post = ({ blog }) => {
       <div className="imgWrapper">
         <Image
           src={`https:` + blog.fields.images.fields.file.url}
-          width={500}
-          height={400}
+          width={300}
+          height={200}
           objectFit="cover"
           layout="responsive"
           quality={10}
@@ -25,7 +25,7 @@ const Post = ({ blog }) => {
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
-          margin: 0 20px;
+          margin: 20px 20px;
         }
 
         .title {
@@ -49,16 +49,17 @@ const Post = ({ blog }) => {
           font-family: monospace;
           font-size: calc(1vw + 10px);
           padding: 1rem;
+          text-align: center;
         }
 
         a {
           display: inline-block;
-          padding: 1rem;
-          font-size: calc(1vw + 12px);
+          padding: 0.6rem;
+          font-size: calc(1vw + 10px);
           background: blue;
           color: white;
 
-          font-weight: 700;
+          font-weight: 500;
           border-radius: 10px;
           transition: 0.3s ease-in-out;
         }
