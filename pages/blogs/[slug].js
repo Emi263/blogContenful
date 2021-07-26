@@ -6,25 +6,6 @@ import PostDetails from "../../components/PostDetails";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-const renderOptions = {
-  renderNode: {
-    [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
-      // render the EMBEDDED_ASSET as you need
-      return (
-        <div className="imageWrapper">
-          <Image
-            className="img"
-            src={`https://${node.data.target.fields.file.url}`}
-            height={600}
-            width={800}
-            alt={node.data.target.fields.description}
-          />
-        </div>
-      );
-    },
-  },
-};
-
 const client = createClient({
   space: "l8hvjl5jmdb6",
   accessToken: "zKDgk4EQgJdVqSGHJc4EfQzLtXELAkpO6NUWSAZotxg",
@@ -62,6 +43,25 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Details({ blog }) {
+  const renderOptions = {
+    renderNode: {
+      [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
+        // render the EMBEDDED_ASSET as you need
+        return (
+          <div className="imageWrapper">
+            <Image
+              className="img"
+              src={`https://${node.data.target.fields.file.url}`}
+              height={600}
+              width={800}
+              alt={node.data.target.fields.description}
+            />
+          </div>
+        );
+      },
+    },
+  };
+
   const router = useRouter();
   if (!blog) return <h1>loading</h1>;
 
