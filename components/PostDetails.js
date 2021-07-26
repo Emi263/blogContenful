@@ -1,48 +1,9 @@
-import { createClient } from "contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import PostDetails from "../../components/PostDetails";
 import Image from "next/image";
 import { useRouter } from "next/router";
-const client = createClient({
-  space: "l8hvjl5jmdb6",
-  accessToken: "zKDgk4EQgJdVqSGHJc4EfQzLtXELAkpO6NUWSAZotxg",
-});
 
-export const getStaticPaths = async () => {
-  const res = await client.getEntries({ content_type: "blog" });
-
-  const paths = res.items.map((item) => {
-    return {
-      params: {
-        slug: item.fields.slug,
-      },
-    };
-  });
-  return {
-    paths: paths,
-    fallback: true, //shows a 404 page instead a fallback page
-  };
-};
-
-export async function getStaticProps({ params }) {
-  //props is the path.params (above)
-  const { items } = await client.getEntries({
-    //get res.item
-    content_type: "blog",
-    "fields.slug": params.slug,
-  });
-  return {
-    props: {
-      blog: items[0],
-    },
-    revalidate: 1,
-  };
-}
-
-export default function Details({ blog }) {
-  console.log(blog);
+function PostDetails({ blog }) {
   const router = useRouter();
-  if (!blog) return <h1>loading</h1>;
 
   return (
     <div className="post">
@@ -69,7 +30,9 @@ export default function Details({ blog }) {
       <style jsx>{`
         .home {
           position: absolute;
+
           left: 20px;
+          border-bottom: 2px solid blue;
           top: 20px;
           color: #00536b;
           cursor: pointer;
@@ -90,12 +53,14 @@ export default function Details({ blog }) {
           padding: 1rem;
         }
 
-        .postText {
+        .postText > h1 {
           position: relative;
           width: 100%;
-          text-align: center;
+          color: red !important;
         }
       `}</style>
     </div>
   );
 }
+
+export default PostDetails;
