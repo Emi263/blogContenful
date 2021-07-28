@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-const Post = ({ blog }) => {
+const Post = ({ blog, setBlogs, blogs }) => {
   return (
     <div className="post">
       <div className="title">{blog.fields.title}</div>
@@ -16,6 +16,26 @@ const Post = ({ blog }) => {
         />
       </div>
       <div className="blog-desc">{blog.fields.description}</div>{" "}
+      <div className="tags">
+        {console.log(blog.fields.tags)}
+        {blog.fields.tags.map((tag) => (
+          <div className="li">
+            #
+            <li
+              onClick={(e) =>
+                setBlogs(
+                  blogs.filter((blog) =>
+                    blog.fields.tags.includes(e.target.innerHTML)
+                  )
+                )
+              }
+              key={tag}
+            >
+              {tag}
+            </li>
+          </div>
+        ))}
+      </div>
       <Link passHref={true} href={"/blogs/" + blog.fields.slug}>
         <a>Read more</a>
       </Link>
@@ -50,6 +70,19 @@ const Post = ({ blog }) => {
           font-size: calc(1vw + 10px);
           padding: 1rem;
           text-align: center;
+        }
+
+        .tags {
+          display: flex;
+          gap: 20px;
+          margin-bottom: 10px;
+        }
+        .tags .li {
+          display: flex;
+          list-style-type: none;
+          background: #00ffea;
+          color: black;
+          cursor: pointer;
         }
 
         a {
