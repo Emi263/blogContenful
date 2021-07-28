@@ -19,7 +19,7 @@ const Post = ({ blog, setBlogs, blogs }) => {
       <div className="tags">
         {console.log(blog.fields.tags)}
         {blog.fields.tags.map((tag) => (
-          <div className="li">
+          <div key={tag} className="li">
             #
             <li
               onClick={(e) =>
