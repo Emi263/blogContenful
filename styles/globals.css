@@ -33,10 +33,14 @@ a {
 .img {
   object-fit: cover;
   background-color: rgb(119, 119, 119);
+  max-width: 100%;
+  width: 100vw;
 }
+
 .imageWrapper {
   padding: 1rem;
 
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

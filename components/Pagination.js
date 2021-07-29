@@ -40,13 +40,17 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
           align-items: center;
           justify-content: center;
           gap: 20px;
+          margin: 3rem;
         }
         .page-item {
           list-style-type: none;
+          border-radius: 10px;
         }
         .page-link {
+          border-radius: 10px;
+
           display: inline-block;
-          padding: 0.3rem 0.6rem;
+          padding: 0.3rem 0.4rem;
           background: blue;
           color: white;
           cursor: pointer;

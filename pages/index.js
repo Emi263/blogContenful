@@ -36,14 +36,21 @@ export default function Blogs({ blogList }) {
   return (
     <>
       <Header />
-      <div className="allpostsclick" onClick={() => setBlogs(blogList)}>
+      <div
+        style={{ position: "relative", width: `100%` }}
+        className="allpostsclick"
+        onClick={() => setBlogs(blogList)}
+      >
         <span
           style={{
+            position: "relative",
             display: "inline-block",
             margin: `10px`,
-            borderBottom: `2px solid blue`,
+            borderBottom: `2px dashed blue`,
             cursor: "pointer",
+            fontSize: `calc(1vw + 12px)`,
             fontFamily: "monospace",
+            color: "purple",
           }}
         >
           All posts
@@ -54,8 +61,9 @@ export default function Blogs({ blogList }) {
         {currentBlogs.map((blog) => (
           <div key={blog.sys.id}>
             <Post
+              setCurrentPage={setCurrentPage}
               blog={blog}
-              blogs={blogs}
+              blogs={blogList}
               setBlogs={setBlogs}
               key={blog.sys.id}
             />
@@ -70,11 +78,17 @@ export default function Blogs({ blogList }) {
         <style jsx>{`
           .posts {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-            grid-gap: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 30px;
           }
           .allpostsclick {
             background: red;
+          }
+
+          @media screen and (min-width: 700px) {
+            .posts {
+              grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            }
           }
         `}</style>
       </div>

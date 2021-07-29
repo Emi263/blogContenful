@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-const Post = ({ blog, setBlogs, blogs }) => {
+const Post = ({ blog, setBlogs, blogs, setCurrentPage }) => {
   return (
     <div className="post">
       <div className="title">{blog.fields.title}</div>
@@ -22,13 +22,14 @@ const Post = ({ blog, setBlogs, blogs }) => {
           <div key={tag} className="li">
             #
             <li
-              onClick={(e) =>
+              onClick={(e) => {
+                setCurrentPage(1);
                 setBlogs(
                   blogs.filter((blog) =>
                     blog.fields.tags.includes(e.target.innerHTML)
                   )
-                )
-              }
+                );
+              }}
               key={tag}
             >
               {tag}
@@ -41,6 +42,7 @@ const Post = ({ blog, setBlogs, blogs }) => {
       </Link>
       <style jsx>{`
         .post {
+          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -57,13 +59,11 @@ const Post = ({ blog, setBlogs, blogs }) => {
         }
 
         .imgWrapper {
-          max-width: 800px;
-          width: 100%;
           background: gray;
           margin: 0 auto;
           border-radius: 10px;
+          width: 100%;
         }
-
         .blog-desc {
           width: 100%;
           font-family: monospace;
@@ -87,12 +87,11 @@ const Post = ({ blog, setBlogs, blogs }) => {
 
         a {
           display: inline-block;
-          padding: 0.6rem;
+          padding: 0.3rem;
           font-size: calc(1vw + 10px);
           background: blue;
           color: white;
-
-          font-weight: 500;
+          font-weight: 400;
           border-radius: 10px;
           transition: 0.3s ease-in-out;
         }
