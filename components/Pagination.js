@@ -48,7 +48,6 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
         }
         .page-link {
           border-radius: 10px;
-
           display: inline-block;
           padding: 0.3rem 0.4rem;
           background: blue;

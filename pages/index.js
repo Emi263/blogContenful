@@ -48,9 +48,13 @@ export default function Blogs({ blogList }) {
             margin: `10px`,
             borderBottom: `2px dashed blue`,
             cursor: "pointer",
-            fontSize: `calc(1vw + 12px)`,
+            fontSize: `calc(1vw + 10px)`,
             fontFamily: "monospace",
             color: "purple",
+            background: "blue",
+            color: "white",
+            padding: ".2rem",
+            borderRadius: "5px",
           }}
         >
           All posts
@@ -77,8 +81,9 @@ export default function Blogs({ blogList }) {
 
         <style jsx>{`
           .posts {
+            justify-content: center;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
             grid-gap: 30px;
           }
           .allpostsclick {
@@ -87,7 +92,7 @@ export default function Blogs({ blogList }) {
 
           @media screen and (min-width: 700px) {
             .posts {
-              grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+              grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
             }
           }
         `}</style>

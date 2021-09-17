@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cardo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 html,
 body {
   padding: 0;
@@ -10,19 +10,22 @@ a {
   text-decoration: none;
 }
 .postText {
-  padding: 0.4rem;
+  padding: 0.4rem 1rem;
+  font-family: "Poppins", sans-serif;
 
-  font-family: "Cardo";
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 1.5rem;
 }
 
 .postText a {
-  color: rgb(0, 26, 255);
+  color: hsl(214, 100%, 45%);
+  text-decoration: underline;
 }
 
-.postText h1 {
+.postText h1,
+h2,
+h3,
+h4 {
   text-align: center;
 }
 
@@ -44,4 +47,12 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+::selection {
+  background-color: rgb(255, 217, 0);
+}
+.time {
+  display: inline-block;
+  padding: 1rem;
+  padding-top: 0.2rem;
 }

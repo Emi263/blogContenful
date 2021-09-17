@@ -78,13 +78,16 @@ export default function Details({ blog }) {
       </div>
       <style jsx>{`
         .home {
-          border-bottom: 2px solid blue;
+          display: inline-block;
           position: absolute;
           left: 10px;
           top: 10px;
           font-size: 13px;
-          color: blue;
+          color: white;
+          padding: 0.3rem;
           cursor: pointer;
+          border-radius: 3px;
+          background: rgb(0, 110, 200);
         }
 
         .title {
@@ -92,7 +95,7 @@ export default function Details({ blog }) {
           text-align: center;
           font-size: calc(1vw + 12px);
           font-weight: bold;
-          font-family: monospace;
+          font-family: "Poppins", sans-serif;
           margin-bottom: 20px;
         }
 

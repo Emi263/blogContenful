@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import moment from "moment";
 const Post = ({ blog, setBlogs, blogs, setCurrentPage }) => {
   return (
     <div className="post">
@@ -15,28 +16,30 @@ const Post = ({ blog, setBlogs, blogs, setCurrentPage }) => {
           className="img"
         />
       </div>
-      <div className="blog-desc">{blog.fields.description}</div>{" "}
+      <article className="blog-desc">{blog.fields.description}</article>{" "}
       <div className="tags">
-        {console.log(blog.fields.tags)}
         {blog.fields.tags.map((tag) => (
-          <div key={tag} className="li">
-            #
-            <li
-              onClick={(e) => {
-                setCurrentPage(1);
-                setBlogs(
-                  blogs.filter((blog) =>
-                    blog.fields.tags.includes(e.target.innerHTML)
-                  )
-                );
-              }}
-              key={tag}
-            >
-              {tag}
-            </li>
-          </div>
+          <>
+            <div key={tag} className="li">
+              #
+              <li
+                onClick={(e) => {
+                  setCurrentPage(1);
+                  setBlogs(
+                    blogs.filter((blog) =>
+                      blog.fields.tags.includes(e.target.innerHTML)
+                    )
+                  );
+                }}
+                key={tag}
+              >
+                {tag}
+              </li>
+            </div>
+          </>
         ))}
       </div>
+      <span className="time">{moment(blog.sys.createdAt).fromNow()}</span>
       <Link passHref={true} href={"/blogs/" + blog.fields.slug}>
         <a>Read more</a>
       </Link>
@@ -80,24 +83,39 @@ const Post = ({ blog, setBlogs, blogs, setCurrentPage }) => {
         .tags .li {
           display: flex;
           list-style-type: none;
-          background: #00ffea;
-          color: black;
+          background: hsl(200, 100%, 38%);
+          color: white;
           cursor: pointer;
+          padding: 0.3rem;
+          border-radius: 5px;
+          font-size: 12px;
+          line-height: 1.5;
+          letter-spacing: 1.5px;
+          transition: ease-in 0.2s;
         }
-
+        .tags .li:hover {
+          background: hsl(29, 80%, 48%);
+        }
         a {
           display: inline-block;
           padding: 0.3rem;
-          font-size: calc(1vw + 10px);
+          font-size: calc(1vw + 12px);
           background: blue;
           color: white;
           font-weight: 400;
-          border-radius: 10px;
+          border-radius: 5px;
           transition: 0.3s ease-in-out;
+          font-family: "Poppins", sans-serif;
         }
 
         a:hover {
           transform: scale(1.09);
+        }
+
+        @media screen and (min-width: 700px) {
+          a {
+            font-size: calc(1vw + 6px);
+          }
         }
       `}</style>
     </div>
