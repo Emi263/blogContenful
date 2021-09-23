@@ -1,13 +1,12 @@
 import { createClient } from "contentful";
-import { BLOCKS, INLINES } from "@contentful/rich-text-types";
-
+import { BLOCKS } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 const client = createClient({
-  space: process.env.NEXT_PUBLIC_SPACE,
-  accessToken: process.env.NEXT_PUBLIC_TOKEN,
+  space: process.env.NEXT_PUBLIC_VERCEL_SPACE,
+  accessToken: process.env.NEXT_PUBLIC_VERCEL_TOKEN,
 });
 
 export async function getStaticPaths() {

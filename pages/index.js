@@ -9,7 +9,7 @@ import { useState } from "react";
 export async function getStaticProps() {
   const client = createClient({
     space: process.env.NEXT_PUBLIC_VERCEL_SPACE,
-    accessToken: process.env.NEXT_VERCEL_PUBLIC_TOKEN,
+    accessToken: process.env.NEXT_PUBLIC_VERCEL_TOKEN,
   });
 
   const response = await client.getEntries({ content_type: "blog" });
