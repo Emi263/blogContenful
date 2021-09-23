@@ -5,8 +5,8 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 const client = createClient({
-  space: process.env.NEXT_PUBLIC_VERCEL_SPACE,
-  accessToken: process.env.NEXT_PUBLIC_VERCEL_TOKEN,
+  space: "l8hvjl5jmdb6",
+  accessToken: "zKDgk4EQgJdVqSGHJc4EfQzLtXELAkpO6NUWSAZotxg",
 });
 
 export async function getStaticPaths() {

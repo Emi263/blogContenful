@@ -8,8 +8,8 @@ import Pagination from "../components/Pagination";
 import { useState } from "react";
 export async function getStaticProps() {
   const client = createClient({
-    space: process.env.NEXT_PUBLIC_VERCEL_SPACE,
-    accessToken: process.env.NEXT_PUBLIC_VERCEL_TOKEN,
+    space: "l8hvjl5jmdb6",
+    accessToken: "zKDgk4EQgJdVqSGHJc4EfQzLtXELAkpO6NUWSAZotxg",
   });
 
   const response = await client.getEntries({ content_type: "blog" });
