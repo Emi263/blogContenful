@@ -8,8 +8,8 @@ import Pagination from "../components/Pagination";
 import { useState } from "react";
 export async function getStaticProps() {
   const client = createClient({
-    space: "l8hvjl5jmdb6",
-    accessToken: "zKDgk4EQgJdVqSGHJc4EfQzLtXELAkpO6NUWSAZotxg",
+    space: process.env.NEXT_PUBLIC_SPACE,
+    accessToken: process.env.NEXT_PUBLIC_TOKEN,
   });
 
   const response = await client.getEntries({ content_type: "blog" });
@@ -92,7 +92,7 @@ export default function Blogs({ blogList }) {
 
           @media screen and (min-width: 700px) {
             .posts {
-              grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+              grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
             }
           }
         `}</style>

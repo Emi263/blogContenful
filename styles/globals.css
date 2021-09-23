@@ -12,9 +12,8 @@ a {
 .postText {
   padding: 0.4rem 1rem;
   font-family: "Poppins", sans-serif;
-
   font-size: 16px;
-  line-height: 1.5rem;
+  line-height: 2rem;
 }
 
 .postText a {
@@ -34,15 +33,13 @@ h4 {
 }
 
 .img {
-  object-fit: cover;
-  background-color: rgb(119, 119, 119);
-  max-width: 100%;
-  width: 100vw;
+  object-fit: contain;
+  background-color: rgb(163, 163, 163);
+  border-radius: 5px;
+  max-width: 80%;
 }
 
 .imageWrapper {
-  padding: 1rem;
-
   max-width: 100%;
   display: flex;
   align-items: center;
@@ -55,4 +52,11 @@ h4 {
   display: inline-block;
   padding: 1rem;
   padding-top: 0.2rem;
+}
+
+@media screen and (min-width: 700px) {
+  .postText {
+    font-size: 20px;
+    padding: 0.4rem 10rem;
+  }
 }

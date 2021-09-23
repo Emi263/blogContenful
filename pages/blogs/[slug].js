@@ -2,13 +2,12 @@ import { createClient } from "contentful";
 import { BLOCKS, INLINES } from "@contentful/rich-text-types";
 
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import PostDetails from "../../components/PostDetails";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
 const client = createClient({
-  space: "l8hvjl5jmdb6",
-  accessToken: "zKDgk4EQgJdVqSGHJc4EfQzLtXELAkpO6NUWSAZotxg",
+  space: process.env.NEXT_PUBLIC_SPACE,
+  accessToken: process.env.NEXT_PUBLIC_TOKEN,
 });
 
 export async function getStaticPaths() {
@@ -91,7 +90,7 @@ export default function Details({ blog }) {
         }
 
         .title {
-          margin-top: 2rem;
+          margin-top: 3rem;
           text-align: center;
           font-size: calc(1vw + 12px);
           font-weight: bold;
@@ -101,9 +100,8 @@ export default function Details({ blog }) {
 
         .imgWrapper {
           max-width: 800px;
-          width: 100%;
+          width: 50%;
           margin: 0 auto;
-          padding: 1rem;
         }
 
         .postText {
