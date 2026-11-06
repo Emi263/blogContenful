@@ -1,0 +1,53 @@
+# The Self-Healing service's runs in this repository's GitHub Actions. The service starts this workflow through its
+# GitHub App with a run id, which is no secret; the job exchanges its OIDC token for the run's token, downloads the
+# runner bundle from the service and runs it. Keep it as .github/workflows/selfheal.yml on the branch runs start from.
+name: selfheal
+run-name: selfheal run ${{ inputs.run_id }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: The Self-Healing service's run id
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      SELFHEAL_URL: https://selfheal.softup.co
+      SELFHEAL_RUN_ID: ${{ inputs.run_id }}
+    steps:
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Exchange the job's OIDC token for the run's token
+        run: |
+          set -euo pipefail
+          [[ "$SELFHEAL_RUN_ID" =~ ^[1-9][0-9]{0,17}$ ]] || { echo "Not a run id"; exit 1; }
+          oidc="$(curl -fsS --max-time 30 -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$SELFHEAL_URL" | jq -r .value)"
+          echo "::add-mask::$oidc"
+          umask 077
+          curl -fsS --max-time 30 -X POST -H "Authorization: Bearer $oidc" -H 'content-type: application/json' \
+            --data "{\"runId\":\"$SELFHEAL_RUN_ID\"}" "$SELFHEAL_URL/v1/runner/actions/token" -o "$RUNNER_TEMP/selfheal-run.json"
+          echo "::add-mask::$(jq -r .token "$RUNNER_TEMP/selfheal-run.json")"
+      - name: Download and install the runner bundle
+        run: |
+          set -euo pipefail
+          token="$(jq -r .token "$RUNNER_TEMP/selfheal-run.json")"
+          curl -fsS --max-time 300 -H "Authorization: Bearer $token" "$SELFHEAL_URL/v1/runner/runs/$SELFHEAL_RUN_ID/bundle" \
+            -o "$RUNNER_TEMP/selfheal-kit.tgz"
+          mkdir -p "$RUNNER_TEMP/selfheal-kit"
+          tar -xzf "$RUNNER_TEMP/selfheal-kit.tgz" -C "$RUNNER_TEMP/selfheal-kit"
+          (cd "$RUNNER_TEMP/selfheal-kit" && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --workspace packages/ci --omit=dev --ignore-scripts --no-audit --no-fund)
+          command -v ffmpeg > /dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg; }
+      - name: Run
+        run: sudo "$(command -v node)" "$RUNNER_TEMP/selfheal-kit/packages/ci/bin/selfheal-runner.mjs" --actions "$RUNNER_TEMP/selfheal-run.json"
